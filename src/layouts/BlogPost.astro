@@ -126,7 +126,6 @@ const { headings } = await render(post);
 
 	<!-- NEEDS IMPROVEMENT!!! -->
 	<!-- Table of Contents button for mobile screens -->
-	<!--
 	{!!headings.length && (
 		<mobile-button
 			id="toggle-toc-mobile"
@@ -138,7 +137,6 @@ const { headings } = await render(post);
 			</span>
 		</mobile-button>
 	)}
-	-->
 </BaseLayout>
 
 <!-- Copy code button -->
@@ -192,12 +190,12 @@ const { headings } = await render(post);
 
 	// Ensure the seriesPanel exists
 	if (!seriesPanel) {
-		console.error("Element series-panel not found");
-		throw new Error("series-panel is required");
+		console.warn("Element series-panel not found - series functionality will be disabled");
 	}
 
 	// Function to check if the panel is visible
 	const isPanelVisible = () => {
+		if (!seriesPanel) return false;
 		const isScreenLg = window.matchMedia("(min-width: 1024px)").matches; // Large screens
 		return (
 			(isScreenLg && seriesPanel.classList.contains("lg:block")) ||
@@ -207,6 +205,7 @@ const { headings } = await render(post);
 
 	// Function to hide the panel
 	const hidePanel = () => {
+		if (!seriesPanel) return;
 		seriesPanel.classList.add("opacity-0", "-translate-x-full");
 		setTimeout(() => {
 			seriesPanel.classList.remove("block", "lg:block");
@@ -216,6 +215,7 @@ const { headings } = await render(post);
 
 	// Function to show the panel
 	const showPanel = () => {
+		if (!seriesPanel) return;
 		seriesPanel.classList.remove("hidden");
 		seriesPanel.classList.add("block", "lg:block");
 		setTimeout(() => {
@@ -306,7 +306,7 @@ const { headings } = await render(post);
 	if (toggleTocMobileBtn) {
 		toggleTocMobileBtn.addEventListener("click", toggleToc);
 	} else {
-		console.error('Element toggle-toc-mobile not found');
+		console.warn('Element toggle-toc-mobile not found - mobile TOC functionality will be disabled');
 	}
 
 	// Add event handler for the close button
