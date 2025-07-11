@@ -232,6 +232,13 @@
 		letter-spacing: 0.025em;
 	}
 
+	/* Increase all text by 20% on large screens (1024px and up) */
+	@media (min-width: 1024px) {
+		html {
+			font-size: 120%; /* 20% larger than default 16px = 19.2px */
+		}
+	}
+
 	h1 {
 		@apply text-2xl md:pt-[0.0rem] !important;
 	}
